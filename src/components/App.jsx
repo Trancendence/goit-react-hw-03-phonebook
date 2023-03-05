@@ -11,6 +11,25 @@ export class App extends Component{
     filter: '',
   }
 
+  componentDidMount(){
+  
+    const initialContact = localStorage.getItem('contact');
+    if (initialContact){
+    const parsedContact = JSON.parse(initialContact);
+    this.setState({
+      contacts: parsedContact,
+    })}
+  }
+  
+  
+  
+  componentDidUpdate(_, prevState){
+    if (prevState.contact !== this.state.contacts){
+    localStorage.setItem('contact', JSON.stringify(this.state.contacts));
+    }
+  }
+  
+
   onInputChange = filter => {
     this.setState({
      filter,
